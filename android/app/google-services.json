@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "456824902722",
+    "project_id": "ic2023-smartbar",
+    "storage_bucket": "ic2023-smartbar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456824902722:android:dc997e24be5340ec3ec9db",
+        "android_client_info": {
+          "package_name": "com.example.smartbar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456824902722-uqkrvtljrocrsog916eh8evj25dl4hfm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBO9VC89HpoCswoCpmLZffmoM5HsjyOT3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456824902722-uqkrvtljrocrsog916eh8evj25dl4hfm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "456824902722-lrag26en3h12j0so7hm74ulfe59aj7mj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.smartbar"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
