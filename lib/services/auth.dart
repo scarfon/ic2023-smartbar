@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smartbar/screens/cadastro.dart';
+import 'package:smartbar/screens/loginpage.dart';
 
-class Auth {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+class AuthPage extends StatefulWidget {
+  const AuthPage({super.key});
 
-  User? get currentuser => _auth.currentUser;
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
 
-  Stream<User?> get authStateChanges => _auth.authStateChanges();
+class _AuthPageState extends State<AuthPage> {
+  bool isLogin = true;
 
-  Future<void> signInWithEmailAndPassword(
-      {required String email, required String password}) async {
-    await _auth.signInWithEmailAndPassword(email: email, password: password);
+  void toggleScreen() {
+    setState(() {
+      isLogin = !isLogin;
+    });
   }
 
-  Future<void> createUserWithEmailAndPassword(
-      {required String email, required String password}) async {
-    await _auth.createUserWithEmailAndPassword(
-        email: email, password: password);
-  }
-
-  Future<void> signOut() async {
-    await _auth.signOut();
+  @override
+  Widget build(BuildContext context) {
+    if (isLogin) {
+      return LoginPage(
+        showCadastro: toggleScreen,
+      );
+    } else {
+      return CadastroPage(
+        showLogin: toggleScreen,
+      );
+    }
   }
 }
