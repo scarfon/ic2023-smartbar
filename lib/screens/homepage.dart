@@ -74,6 +74,18 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  final List<String> _possiveisCombinacoes = [
+    //only colors Verde, Amarelo, Vermelho, Laranja
+    "Verde 1 oz, Amarelo 3 oz",
+    "Verde 2 oz, Vermelho 1 oz",
+    "Verde 2 oz, Laranja 1 oz, Vermelho 1 oz",
+    "Verde 3 oz, Vermelho 2 oz",
+    "Amarelo 1 oz, Vermelho 1 oz",
+    "Amarelo 1 oz, Laranja 1 oz, Vermelho 2 oz",
+    "Laanra 1 oz, Vermelho 1 oz",
+    "Laranja 1 oz, Vermelho 2 oz",
+  ];
+
   final CollectionReference drinks =
       FirebaseFirestore.instance.collection('drinks');
   String? title;
@@ -95,86 +107,296 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("SmartBar"),
+        actions: [
+          IconButton(
+            onPressed: () => FirebaseAuth.instance.signOut(),
+            icon: const Icon(Icons.logout),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Center(
-          child: Column(children: [
-            Text(user!.email!),
-            ElevatedButton(
-              onPressed: () => FirebaseAuth.instance.signOut(),
-              child: const Text("Log Out"),
-            ),
-            Expanded(
-              child: FutureBuilder(
-                future: getDrinksIs(),
-                builder: (context, snapshot) {
-                  return ListView.builder(
-                    itemCount: _drinksId.length,
-                    itemBuilder: (context, index) {
-                      return GetDrinks(drinkId: _drinksId[index]);
-                    },
-                  );
-                },
+          child: Column(
+            children: [
+              Container(
+                height: 75,
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                ref.child('copo').set(true);
-              },
-              child: const Text("Copo"),
-            ),
-            Text("${_copo ?? ""}"),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.child('bomba1').set(true);
-                      },
-                      child: const Text("Bomba 1"),
+              const Text(
+                "Teste de Funcionalidade SmartBar (Beta)",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.5,
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  ref.child('copo').set(true);
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(20),
+                  primary: Colors.blue,
+                ),
+                child: Column(
+                  children: const [
+                    Icon(
+                      Icons.local_drink,
+                      size: 50,
+                      color: Colors.white,
                     ),
-                    Text("${_bomba1 ?? ""}")
+                    Text(
+                      "Copo",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
                   ],
                 ),
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.child('bomba2').set(true);
-                      },
-                      child: const Text("Bomba 2"),
+              ),
+              Text("${_copo ?? ""}"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      ref.child('bomba1').set(true);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(20),
+                      primary: Colors.green,
                     ),
-                    Text("${_bomba2 ?? ""}")
-                  ],
-                ),
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.child('bomba3').set(true);
-                      },
-                      child: const Text("Bomba 3"),
+                    child: Column(
+                      children: const [
+                        Icon(
+                          Icons.water,
+                          size: 50,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          "1",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text("${_bomba3 ?? ""}")
-                  ],
-                ),
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.child('bomba4').set(true);
-                      },
-                      child: const Text("Bomba 4"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      ref.child('bomba2').set(true);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(20),
+                      primary: Colors.yellow,
                     ),
-                    Text("${_bomba4 ?? ""}")
-                  ],
+                    child: Column(
+                      children: const [
+                        Icon(
+                          Icons.water,
+                          size: 50,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          "2",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      ref.child('bomba3').set(true);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(20),
+                      primary: Colors.red,
+                    ),
+                    child: Column(
+                      children: const [
+                        Icon(
+                          Icons.water,
+                          size: 50,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          "3",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      ref.child('bomba4').set(true);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(20),
+                      primary: Colors.orange,
+                    ),
+                    child: Column(
+                      children: const [
+                        Icon(
+                          Icons.water,
+                          size: 50,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          "4",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 2,
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Status do Firebase",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Divider(
+                        height: 20,
+                        thickness: 3,
+                      ),
+                      Text(
+                        _copo != null ? "Copo $_copo" : "",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        _bomba1 != null ? "Bomba 1 $_bomba1" : "",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        _bomba2 != null ? "Bomba 2 $_bomba2" : "",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        _bomba3 != null ? "Bomba 3 $_bomba3" : "",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        _bomba4 != null ? "Bomba 4 $_bomba4" : "",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Divider(
+                        height: 20,
+                        thickness: 3,
+                      ),
+                      const Text(
+                        "Possíveis combinações:",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Divider(
+                        height: 20,
+                        thickness: 3,
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: _possiveisCombinacoes.length,
+                          itemBuilder: (context, index) {
+                            return Center(
+                              child: Text(
+                                _possiveisCombinacoes[index],
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ]),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+ // Expanded(
+              //   child: FutureBuilder(
+              //     future: getDrinksIs(),
+              //     builder: (context, snapshot) {
+              //       return ListView.builder(
+              //         itemCount: _drinksId.length,
+              //         itemBuilder: (context, index) {
+              //           return GetDrinks(drinkId: _drinksId[index]);
+              //         },
+              //       );
+              //     },
+              //   ),
+              // ),
